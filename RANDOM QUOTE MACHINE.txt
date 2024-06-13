@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<head>
+    <title>Your Title Here</title>
+    <!-- Link to the CSS file -->
+    <link rel="stylesheet" type="text/css" href="styles.css">
+  <style>
+    #quote-box{
+      margin: 0 auto;
+      width: 50%;
+    }
+  </style>
+</head>
+<body>
+ <div id="quote-box">
+   <div className="quote-content">
+     <h2 id="text"></h2>
+     <h4 id="author"></h4>
+   </div>
+   <div className="buttons">
+     <a href="twitter.com/intent/tweet" id="tweet-quote"></a>
+     <button id="new-quote" onClicked="{changeQuote}">Change Qoute</button>
+   </div>
+  </div>
+   
+    <!-- Link to the JavaScript file -->
+    <script>
+  var button = document.getElementById('new-quote');
+        var text = document.getElementById('text');
+var author = document.getElementById('author');
+        // Add a click event listener to the button
+        button.addEventListener('click', function() {
+            // Fetch a new quote from an API
+            fetch('https://api.quotable.io/random')
+                .then(response => response.json())
+                .then(data => {
+                    // Update the #text element with the new quote
+                    text.textContent = data.content;
+              author.textContent = data.author;
+                
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    text.textContent = "Oops! There was an error fetching a new quote.";
+                });
+        });
+  </script>
+</body>
